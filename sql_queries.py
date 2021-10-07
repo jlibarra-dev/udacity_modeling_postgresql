@@ -35,7 +35,7 @@ song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (
    title varchar,
    artist_id varchar,
    year int,
-   duration real
+   duration float
 )
 """)
 
@@ -43,8 +43,8 @@ artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (
    artist_id varchar PRIMARY KEY,
    name varchar,
    location varchar,
-   latitude real,
-   longitude real
+   latitude float,
+   longitude float
 )
 """)
 
@@ -61,20 +61,33 @@ time_table_create = ("""CREATE TABLE IF NOT EXISTS time (
 
 # INSERT RECORDS
 
-songplay_table_insert = ("""INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s);
+songplay_table_insert = ("""INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
+VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s);
 """)
 
-user_table_insert = ("""INSERT INTO users (user_id, first_name, last_name, gender, level) VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;
+user_table_insert = ("""INSERT INTO users (user_id, first_name, last_name, gender, level) 
+VALUES (%s, %s, %s, %s, %s) 
+ON CONFLICT (user_id)
+DO UPDATE SET  (first_name, last_name, gender, level) = (EXCLUDED.first_name, EXCLUDED.last_name, EXCLUDED.gender, EXCLUDED.level)
 """)
 
-song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;
+song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) 
+VALUES (%s, %s, %s, %s, %s) 
+ON CONFLICT (song_id)
+DO UPDATE SET  (title, artist_id, year, duration) = (EXCLUDED.title, EXCLUDED.artist_id, EXCLUDED.year, EXCLUDED.duration)
 """)
 
-artist_table_insert = ("""INSERT INTO artists (artist_id, name, location, latitude, longitude) VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;
+artist_table_insert = ("""INSERT INTO artists (artist_id, name, location, latitude, longitude) 
+VALUES (%s, %s, %s, %s, %s) 
+ON CONFLICT (artist_id)
+DO UPDATE SET  (name, location, latitude, longitude) = (EXCLUDED.name, EXCLUDED.location, EXCLUDED.latitude, EXCLUDED.longitude)
 """)
 
 
-time_table_insert = ("""INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;
+time_table_insert = ("""INSERT INTO time (start_time, hour, day, week, month, year, weekday) 
+VALUES (%s, %s, %s, %s, %s, %s, %s) 
+ON CONFLICT (start_time)
+DO UPDATE SET  (hour, day, week, month, year, weekday) = (EXCLUDED.hour, EXCLUDED.day, EXCLUDED.week, EXCLUDED.month, EXCLUDED.year, EXCLUDED.weekday)
 """)
 
 # FIND SONGS
