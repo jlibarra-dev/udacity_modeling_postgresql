@@ -11,10 +11,10 @@ First run the create_tables.py to create the database and the table for the proj
 - sql_queries.py: Some util queries for create, drop, insert and select data of our tables.
 - test.ipynb: Test to query the tables to see if the information was succesfully loaded.
 ## Star model schema
-# Fact Table
+### Fact Table
 songplays - records in log data associated with song plays i.e. records with page NextSong
 songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
-# Dimension Tables
+### Dimension Tables
 users - users in the app
 user_id, first_name, last_name, gender, level
 songs - songs in music database
