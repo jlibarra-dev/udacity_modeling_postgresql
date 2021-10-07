@@ -10,3 +10,6 @@ First run the create_tables.py to create the database and the table for the proj
 - etl.py: Script for running the ETL. In the ETL we convert the info and store the processed info in the tables.
 - sql_queries.py: Some util queries for create, drop, insert and select data of our tables.
 - test.ipynb: Test to query the tables to see if the information was succesfully loaded.
+## Star model schema
+![udacityPostgre drawio](https://user-images.githubusercontent.com/54164818/136455768-fbed7934-43c6-4aa7-bcea-2e9373ed738e.png)
+
